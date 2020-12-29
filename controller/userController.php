@@ -29,7 +29,7 @@ class userController{
             );
             $this->_user = $this->_userManager->createUser($result['_id'],$user);
             if($_SESSION['userStateLogIn'] = $this->_user == 'null'){
-                ['res'=>'Echec à la connexion','couleur' => 'red'];
+                ['res'=>'Echec à la ','couleur' => 'red'];
                 header('Location : ../vue/form.php');
             }else{
                 ['res'=>'Connexion réussie','couleur' => 'green'];

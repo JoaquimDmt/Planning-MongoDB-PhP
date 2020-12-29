@@ -16,7 +16,7 @@ class userManager{
         $option = [];
         $read = new MongoDB\Driver\Query($filter, $option);
         //Exécution de la requête
-        $cursor =  $this->_managerDb->executeQuery('CollectPlanning.users', $read);
+        $cursor =  $this->_managerDb->executeQuery('Planning.users', $read);
         foreach($cursor as $user)
         {
                 return $user;
@@ -36,7 +36,7 @@ class userManager{
             $single_insert = new MongoDB\Driver\BulkWrite();
             $newAddId = $single_insert->insert($tabUser);
             // Création d'une nouvel objet de la collection "users"
-            $this->_managerDb->executeBulkWrite('CollectPlanning.users', $single_insert) ;
+            $this->_managerDb->executeBulkWrite('Planning.users', $single_insert) ;
             
         }else{
             $newAddId = 'null';
@@ -59,7 +59,7 @@ class userManager{
             $option = [];
             $read = new MongoDB\Driver\Query($tabFilter, $option);
             //Exécution de la requête
-            $cursor =   $this->_managerDb->executeQuery('CollectPlanning.users', $read);
+            $cursor =   $this->_managerDb->executeQuery('Planning.users', $read);
             //On vérifie si le resultat de la requete existe
             foreach($cursor as $user)
             {

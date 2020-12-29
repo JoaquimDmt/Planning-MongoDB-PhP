@@ -9,10 +9,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link type="text/css" rel="stylesheet" href="form.css">
+        
         <title>JSP Page</title>
     </head>
     <body>
-        <div class="container" style="padding-top: 15%">
+        <div class="container-fluid" style="padding-top: 15%">
         
       
             <div class="accordion" id="accordionExample">

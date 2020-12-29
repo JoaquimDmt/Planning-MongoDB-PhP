@@ -14,7 +14,7 @@ class CalendarManager{
         $option = [];
         $read = new MongoDB\Driver\Query($filter, $option);
         //Exécution de la requête
-        $cursor =  $this->_managerDb->executeQuery('CollectPlanning.employes', $read);
+        $cursor =  $this->_managerDb->executeQuery('Planning.employes', $read);
         $employe = [];
         foreach($cursor as $emp)
         {
@@ -35,15 +35,14 @@ class CalendarManager{
         //Exécution de la requête
         foreach($listeSemaine as $key=>$value)
         {
-            $cursor =  $this->_managerDb->executeQuery('CollectPlanning.year'.$key, $read);
-            $week = [];
+            $cursor =  $this->_managerDb->executeQuery('Planning.year'.$key, $read);
             foreach($cursor as $sem)
             {
                     
-                     array_push($week,$sem);
+                     array_push($listeSemaine[$key],$sem);
             }
             
-            array_push($listeSemaine[$key],$week);
+            
         }
       
         return $listeSemaine; 
@@ -56,7 +55,7 @@ class CalendarManager{
         $maj = array('$set'=>['user'=>'']);
         $updates = new MongoDB\Driver\BulkWrite();
         $updates->update($filter,$maj);
-        $result = $this->_managerDb->executeBulkWrite('CollectPlanning.year'.$year, $updates) ;
+        $result = $this->_managerDb->executeBulkWrite('Planning.year'.$year, $updates) ;
         
     }
 
@@ -67,9 +66,62 @@ class CalendarManager{
         $maj = ['$set'=>['user'=>$emp]];
         $updates = new MongoDB\Driver\BulkWrite();
         $updates->update($filter,$maj);
-        $result = $this->_managerDb->executeBulkWrite('CollectPlanning.year'.$year, $updates) ;
+        $result = $this->_managerDb->executeBulkWrite('Planning.year'.$year, $updates) ;
 
     }
 
-    public function getStatistics
+    public function getStatistics()
+    {
+        $listeSemaine = ["2017"=>[],'2018'=>[],'2019'=>[],'2020'=>[]];
+
+        //Exécution de la requête
+        foreach($listeSemaine as $key=>$value)
+        {
+           
+            
+           
+            $command = new MongoDB\Driver\Command([
+                'aggregate' => 'employes',
+                'pipeline' => [
+                            [
+                                '$lookup' => [
+                                    'from' => 'year'.$key,
+                                    'localField'=> '_id', 
+                                    'foreignField'=> 'user', 
+                                    'as'=> 'dayOn' 
+                                ]
+                            ],
+                            [
+                                '$addFields' => [
+                                    'nbDayOfWork'=> [
+                                        '$size' => '$dayOn'
+                                    ]
+                                ]
+                            ],
+                            [
+                                '$project' =>[
+                                    'prenom'=> 1,
+                                    'couleur'=>1, 
+                                    'nbDayOfWork'=> 1 
+                                ]
+                            ]
+                ],
+                'cursor' => new stdClass,
+            ]);
+            $cursor =  $this->_managerDb->executeCommand('Planning', $command);
+           
+        
+            foreach($cursor as $res)
+            {
+                
+                     array_push($listeSemaine[$key],$res);
+            }
+            
+            
+          
+        }
+       
+        return $listeSemaine;
+            
+    }
 }
