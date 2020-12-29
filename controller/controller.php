@@ -4,6 +4,7 @@
     $dbInstance = new Connexion();
     $dbInstance->doConnect();
     $collection = $dbInstance->getManagerDB();
+    
     $fc=$_GET['fc'];
     $src = $_GET['ctrl'];
     $empToAct = ['emp'=>$_GET['emp']==null ?"":$_GET['emp'],'week'=>$_GET['week']==null ?"":$_GET['week'], 'year' =>$_GET['year']==null ?"":$_GET['year']];

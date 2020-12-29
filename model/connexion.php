@@ -7,16 +7,18 @@ class Connexion{
     private $_manager;
 
     public function __construct(){
-        $this->_identifiant = "";
-        $this->_password = "";
+        $this->_identifiant = "valereAdmin";
+        $this->_password = "bm58ot05";
    }
 
    public function doConnect(){
         try{
-            $this->_manager = new MongoDB\Driver\Manager('mongodb+srv://'.$this->_identifiant.':'.$this->_password.'@planning.hychf.mongodb.net/test');
+
+            $this->_manager = new MongoDB\Driver\Manager("mongodb+srv://{$this->_identifiant}:{$this->_password}@cluster0.hychf.mongodb.net/Planning?retryWrites=true&w=majority");
+
         }catch(MongoDB\Driver\Exception\InvalidArgumentException $e )
         {
-                $e->getMessage();
+               echo $e->getMessage();
         }
     }
 

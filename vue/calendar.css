@@ -59,7 +59,7 @@ body{
     border-radius: 10px;
 }
 #_panelSetWeek{
-    height : 86vh;
+    height : 85vh;
     display:grid;
     grid-template-rows: minmax(200px,30%) minmax(300px,70%);
     align-items: end;
