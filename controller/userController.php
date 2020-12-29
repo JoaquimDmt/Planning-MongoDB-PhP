@@ -25,12 +25,6 @@ class userController{
                         ['email' => $_POST['staticEmail']],
                           ['password' => $_POST['inputPassword']])
             );
-<<<<<<< Updated upstream
-            $this->_user = $this->_userManager->createUser($result['_id'],$user);
-            if($_SESSION['userStateLogIn'] = $this->_user == 'null'){
-                ['res'=>'Echec à la ','couleur' => 'red'];
-                header('Location : ../vue/form.php');
-=======
 
             if($result = $this->_userManager->getUserByPassAndEmail($userTabFilter) != null)
             {
@@ -54,7 +48,6 @@ class userController{
                     $_SESSION['user'] =$this->_user;
                 }
             
->>>>>>> Stashed changes
             }else{
                 $_SESSION['userStateLogIn'] = ['res'=>'Aucun compte avec votre identifiant et mot de passe existe.','couleur' => 'red'];
                 $redirect = "form";

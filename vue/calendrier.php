@@ -42,16 +42,9 @@
                         <transition-group name="yearChange" tag="div"  id="_contentCalendar">
                                     <div v-for="(week,index) in sessionWeek[yearList[i]]" v-bind:key="week._id.$oid" class="_weekTile" v-bind:name="week._id.$oid+yearList[i]">
         
-<<<<<<< Updated upstream
                                         <span v-if="week.user != '' " v-bind:title="getWorkerOfWeek(week.user.$oid)"><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
                                         <span v-else v-bind:style="{ border: 'solid 2px', borderColor : '#F59B9B' }"><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
                                        
-=======
-
-                                        <span v-if="week.user != ''" v-bind:title="getWorkerOfWeek(week.user.$oid)"><p  v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
-                                        <span v-else v-bind:style="{border:'solid 2px #EE9285'}" title="Personne n'est affecté à cette semaine"><p  v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
-
->>>>>>> Stashed changes
                                         <div style="display:none" class="_contentWeekTile" >
                                             <p>{{ week['weekDate'] }}</p>
                                             <i v-on:click="unsetDisplayTile" style="color:red" class="fas fa-times fa-sm"></i>
@@ -207,20 +200,6 @@ Vue.component('bar-chart',{
                         
                     });
             },
-<<<<<<< Updated upstream
-            getWorkerOfWeek:function(id)
-            {
-                console.log(id);
-                var worker="";
-                for(var emp of this.sessionEmploye)
-                {
-                    
-                    worker = emp._id.$oid == id ? emp.prenom : worker;
-                    
-                }
-            
-                return worker+=" travaille cette semaine."
-=======
             getWorkerOfWeek:function(id){
                 
                 let worker="";
@@ -230,7 +209,6 @@ Vue.component('bar-chart',{
                    
                 }
                 return worker+=" est affecté à cette semaine";
->>>>>>> Stashed changes
             },
             beforeStyle:function(ul)
             {

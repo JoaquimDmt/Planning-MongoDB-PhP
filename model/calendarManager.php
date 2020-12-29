@@ -36,10 +36,6 @@ class CalendarManager{
         foreach($listeSemaine as $key=>$value)
         {
             $cursor =  $this->_managerDb->executeQuery('Planning.year'.$key, $read);
-<<<<<<< Updated upstream
-=======
-            $week = [];
->>>>>>> Stashed changes
             foreach($cursor as $sem)
             {
                     
