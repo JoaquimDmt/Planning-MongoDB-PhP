@@ -188,7 +188,7 @@ Vue.component('bar-chart',{
             initVar : function(){
                 axios.get('../controller/controller.php?ctrl=calendar&fc=start')
                     .then(response=>{
-                        console.log(response);
+                    
                         this.sessionWeek = response.data.sessionWeek;
                         this.sessionEmploye = response.data.sessionEmploye;
                     }).catch(error=>{
