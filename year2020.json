@@ -1,0 +1,367 @@
+[{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9467f"
+  },
+  "week": 1,
+  "weekDate": "30/12",
+  "user": {
+    "$oid": "5fe393e1eb9dbe398cd946b6"
+  }
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94680"
+  },
+  "week": 2,
+  "weekDate": "06/01",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94681"
+  },
+  "week": 3,
+  "weekDate": "13/01",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94682"
+  },
+  "week": 4,
+  "weekDate": "20/01",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94683"
+  },
+  "week": 5,
+  "weekDate": "27/01",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94684"
+  },
+  "week": 6,
+  "weekDate": "03/02",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94685"
+  },
+  "week": 7,
+  "weekDate": "10/02",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94686"
+  },
+  "week": 8,
+  "weekDate": "17/02",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94687"
+  },
+  "week": 9,
+  "weekDate": "24/02",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94688"
+  },
+  "week": 10,
+  "weekDate": "02/03",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94689"
+  },
+  "week": 1,
+  "weekDate": "09/03",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9468a"
+  },
+  "week": 11,
+  "weekDate": "16/03",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9468b"
+  },
+  "week": 12,
+  "weekDate": "23/03",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9468c"
+  },
+  "week": 13,
+  "weekDate": "30/03",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9468d"
+  },
+  "week": 14,
+  "weekDate": "06/04",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9468e"
+  },
+  "week": 15,
+  "weekDate": "13/04",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9468f"
+  },
+  "week": 16,
+  "weekDate": "20/04",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94690"
+  },
+  "week": 17,
+  "weekDate": "27/04",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94691"
+  },
+  "week": 18,
+  "weekDate": "04/05",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94692"
+  },
+  "week": 19,
+  "weekDate": "11/05",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94693"
+  },
+  "week": 20,
+  "weekDate": "18/05",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94694"
+  },
+  "week": 21,
+  "weekDate": "25/05",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94695"
+  },
+  "week": 22,
+  "weekDate": "01/06",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94696"
+  },
+  "week": 23,
+  "weekDate": "08/06",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94697"
+  },
+  "week": 25,
+  "weekDate": "15/06",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94698"
+  },
+  "week": 26,
+  "weekDate": "22/06",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd94699"
+  },
+  "week": 27,
+  "weekDate": "29/06",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9469a"
+  },
+  "week": 28,
+  "weekDate": "06/07",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9469b"
+  },
+  "week": 29,
+  "weekDate": "13/07",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9469c"
+  },
+  "week": 30,
+  "weekDate": "20/07",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9469d"
+  },
+  "week": 31,
+  "weekDate": "27/07",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9469e"
+  },
+  "week": 32,
+  "weekDate": "03/08",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd9469f"
+  },
+  "week": 33,
+  "weekDate": "10/08",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946a0"
+  },
+  "week": 34,
+  "weekDate": "17/08",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946a1"
+  },
+  "week": 35,
+  "weekDate": "24/08",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946a2"
+  },
+  "week": 36,
+  "weekDate": "31/08",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946a3"
+  },
+  "week": 37,
+  "weekDate": "07/09",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946a4"
+  },
+  "week": 38,
+  "weekDate": "14/09",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946a5"
+  },
+  "week": 39,
+  "weekDate": "21/09",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946a6"
+  },
+  "week": 40,
+  "weekDate": "28/09",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946a7"
+  },
+  "week": 41,
+  "weekDate": "05/10",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946a8"
+  },
+  "week": 42,
+  "weekDate": "12/10",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946a9"
+  },
+  "week": 43,
+  "weekDate": "19/10",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946aa"
+  },
+  "week": 44,
+  "weekDate": "26/10",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946ab"
+  },
+  "week": 45,
+  "weekDate": "02/11",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946ac"
+  },
+  "week": 46,
+  "weekDate": "09/11",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946ad"
+  },
+  "week": 47,
+  "weekDate": "16/11",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946ae"
+  },
+  "week": 48,
+  "weekDate": "23/11",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946af"
+  },
+  "week": 49,
+  "weekDate": "30/11",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946b0"
+  },
+  "week": 50,
+  "weekDate": "07/12",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946b1"
+  },
+  "week": 51,
+  "weekDate": "14/12",
+  "user": ""
+},{
+  "_id": {
+    "$oid": "5fe39247eb9dbe398cd946b2"
+  },
+  "week": 52,
+  "weekDate": "21/12",
+  "user": ""
+}]

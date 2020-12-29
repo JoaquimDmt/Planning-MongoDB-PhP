@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "5fdd1ec46a7a9e606d470955"
+  },
+  "email": "valerepreney@hotmail.fr",
+  "firstname": "Valère",
+  "lastname": "Preney",
+  "password": "bm58ot05",
+  "pseudo": "preneyv"
+},{
+  "_id": {
+    "$oid": "5fdd256a6a7a9e1707211222"
+  },
+  "email": "valerepreney@hotmail.fr",
+  "firstname": "Dominique",
+  "lastname": "Preney-bresson",
+  "password": "fifi",
+  "pseudo": "lolo21200"
+}]

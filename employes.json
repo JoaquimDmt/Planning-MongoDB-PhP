@@ -1,0 +1,25 @@
+[{
+  "_id": {
+    "$oid": "5fe393e1eb9dbe398cd946b3"
+  },
+  "prenom": "Vincent",
+  "couleur": "228,33,30"
+},{
+  "_id": {
+    "$oid": "5fe393e1eb9dbe398cd946b4"
+  },
+  "prenom": "Christophe",
+  "couleur": "40,201,52"
+},{
+  "_id": {
+    "$oid": "5fe393e1eb9dbe398cd946b5"
+  },
+  "prenom": "Thomas",
+  "couleur": "225,231,23"
+},{
+  "_id": {
+    "$oid": "5fe393e1eb9dbe398cd946b6"
+  },
+  "prenom": "David",
+  "couleur": "23,48,231"
+}]
