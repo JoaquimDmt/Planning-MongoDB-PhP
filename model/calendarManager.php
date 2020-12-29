@@ -62,6 +62,7 @@ class CalendarManager{
     public function setEmployeOfWeek($emp, $week, $year)
     {
         $week=new MongoDB\BSON\ObjectId($week);
+        $emp=new MongoDB\BSON\ObjectId($emp);
         $filter=['_id'=>$week];
         $maj = ['$set'=>['user'=>$emp]];
         $updates = new MongoDB\Driver\BulkWrite();

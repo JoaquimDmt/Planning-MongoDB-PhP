@@ -235,7 +235,7 @@ Vue.component('bar-chart',{
                         this.sessionWeek[year][indexWeek]['user'] = emp;
                     }).catch(error=>{
                         
-                    });;
+                    });
                 
             },
             setWeekEmpToNull:function(week,indexWeek,year,event)
