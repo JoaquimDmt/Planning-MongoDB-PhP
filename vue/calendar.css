@@ -59,14 +59,16 @@ body{
     border-radius: 10px;
 }
 #_panelSetWeek{
-    height : 87vh;
+    height : 86vh;
     display:grid;
     grid-template-rows: minmax(200px,30%) minmax(300px,70%);
+    align-items: end;
+
 }
 
 #_calendar{
-    padding-bottom:10px;
-    height : 86vh;
+    padding-bottom:20px;
+    height : 83vh;
     padding-right: 5px;
 }
 
@@ -86,9 +88,9 @@ body{
     display: grid;
     grid-template-columns: repeat(4,minmax(200px,25%));
     min-height: 400px;
-    height : 81vh;
-    margin-top : 10px;
+    height : 95%;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 

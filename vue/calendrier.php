@@ -38,33 +38,32 @@
                         <div class="_weekTitle" id="_weekThreeTitle">Sem 3</div>
                         <div class="_weekTitle" id="_weekFourTitle">Sem 4</div>
                     </div>
-                    <transition-group name="yearChange" tag="div">
-                        <div v-for="(name) in yearList" v-bind:key="yearList[i]" v-if="yearList[i]==name" id="_contentCalendar">
-                                    <div v-for="(week,index) in sessionWeek[name]"  class="_weekTile">
+                    
+                        <transition-group name="yearChange" tag="div"  id="_contentCalendar">
+                                    <div v-for="(week,index) in sessionWeek[yearList[i]]" v-bind:key="week._id.$oid" class="_weekTile" v-bind:name="week._id.$oid+yearList[i]">
         
                                         <span v-if="week.user.$oid != null" v-bind:style="{ border:'none'}"><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
                                         <span v-else v-bind:style="{ border: 'solid 1px', borderColor : '#F59B9B' }"><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
                                        
-                                        <div style="display:none" class="_contentWeekTile">
+                                        <div style="display:none" class="_contentWeekTile" >
                                             <p>{{ week['weekDate'] }}</p>
                                             <i v-on:click="unsetDisplayTile" style="color:red" class="fas fa-times fa-sm"></i>
                                                 
                                                 <ul>
                                                     <span v-for="ul in sessionEmploye.slice(0,Math.ceil(sessionEmploye.length/2))">
-                                                                <li  v-if="ul._id.$oid == week.user.$oid"class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, name ,$event)" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
-                                                                <li  v-else class="liEmp fas fa-circle" v-on:click="setWeekEmp(ul._id, week ,index, name ,$event)">{{ ul.prenom }}</li>
+                                                                <li  v-if="ul._id.$oid == week.user.$oid"class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, yearList[i] ,$event)" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
+                                                                <li  v-else class="liEmp fas fa-circle" v-on:click="setWeekEmp(ul._id, week ,index, yearList[i] ,$event)">{{ ul.prenom }}</li>
                                                     </span>
                                                 </ul>
                                                 <ul>
                                                     <span v-for="ul in sessionEmploye.slice(Math.ceil(sessionEmploye.length/2))">
-                                                                <li  v-if="ul._id.$oid == week.user.$oid" class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, name ,$event)" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
-                                                                <li  v-else class="liEmp fas fa-circle" v-on:click="setWeekEmp(ul._id, week ,index, name ,$event)">{{ ul.prenom }}</li>
+                                                                <li  v-if="ul._id.$oid == week.user.$oid" class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, yearList[i] ,$event)" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
+                                                                <li  v-else class="liEmp fas fa-circle" v-on:click="setWeekEmp(ul._id, week ,index, yearList[i] ,$event)">{{ ul.prenom }}</li>
                                                     </span>
                                                 
                                                 </ul>
                                         </div>
                                     </div>
-                        </div>
                     </transition-group>
 
                 </div>
@@ -161,7 +160,7 @@ Vue.component('bar-chart',{
 
                 },
                 responsive: true,
-				maintainAspectRatio: false,
+				maintainAspectRatio: true,
 				height: 200
             });
 

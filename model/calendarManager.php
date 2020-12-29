@@ -18,6 +18,8 @@ class CalendarManager{
         $employe = [];
         foreach($cursor as $emp)
         {
+                
+        
                 array_push($employe,$emp);
         }
         return $employe;
@@ -34,15 +36,14 @@ class CalendarManager{
         foreach($listeSemaine as $key=>$value)
         {
             $cursor =  $this->_managerDb->executeQuery('CollectPlanning.year'.$key, $read);
-          
-            
+            $week = [];
             foreach($cursor as $sem)
             {
                     
-                array_push($listeSemaine[$key],$sem);
+                     array_push($week,$sem);
             }
             
-            
+            array_push($listeSemaine[$key],$week);
         }
       
         return $listeSemaine; 
@@ -61,9 +62,7 @@ class CalendarManager{
 
     public function setEmployeOfWeek($emp, $week, $year)
     {
-     
         $week=new MongoDB\BSON\ObjectId($week);
-        $emp = new MongoDB\BSON\ObjectId($emp);
         $filter=['_id'=>$week];
         $maj = ['$set'=>['user'=>$emp]];
         $updates = new MongoDB\Driver\BulkWrite();
@@ -72,58 +71,5 @@ class CalendarManager{
 
     }
 
-    public function getStatistics()
-    {
-        $listeSemaine = ["2017"=>[],'2018'=>[],'2019'=>[],'2020'=>[]];
-
-        //Exécution de la requête
-        foreach($listeSemaine as $key=>$value)
-        {
-           
-            
-           
-            $command = new MongoDB\Driver\Command([
-                'aggregate' => 'employes',
-                'pipeline' => [
-                            [
-                                '$lookup' => [
-                                    'from' => 'year'.$key,
-                                    'localField'=> '_id', 
-                                    'foreignField'=> 'user', 
-                                    'as'=> 'dayOn' 
-                                ]
-                            ],
-                            [
-                                '$addFields' => [
-                                    'nbDayOfWork'=> [
-                                        '$size' => '$dayOn'
-                                    ]
-                                ]
-                            ],
-                            [
-                                '$project' =>[
-                                    'prenom'=> 1,
-                                    'couleur'=>1, 
-                                    'nbDayOfWork'=> 1 
-                                ]
-                            ]
-                ],
-                'cursor' => new stdClass,
-            ]);
-            $cursor =  $this->_managerDb->executeCommand('CollectPlanning', $command);
-           
-        
-            foreach($cursor as $res)
-            {
-                
-                     array_push($listeSemaine[$key],$res);
-            }
-            
-            
-          
-        }
-       
-        return $listeSemaine;
-            
-    }
+    public function getStatistics
 }
