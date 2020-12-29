@@ -45,11 +45,10 @@ class userManager{
         return $newAddId;
     }
 
-    public function createUser($id, $userTab){
+    public function createUser($userTab){
 
-        $user = new User($id);
+        $user = new User($userTab['id'][0]);
         $user->hydrate($userTab);
-        var_dump($user);
         return $user;
     }
 
@@ -66,7 +65,6 @@ class userManager{
                 
                 $userExist = $user ? $user : null;
             }
-            var_dump($userExist);
             return $userExist;
     }
 

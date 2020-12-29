@@ -42,9 +42,16 @@
                         <transition-group name="yearChange" tag="div"  id="_contentCalendar">
                                     <div v-for="(week,index) in sessionWeek[yearList[i]]" v-bind:key="week._id.$oid" class="_weekTile" v-bind:name="week._id.$oid+yearList[i]">
         
+<<<<<<< Updated upstream
                                         <span v-if="week.user != '' " v-bind:title="getWorkerOfWeek(week.user.$oid)"><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
                                         <span v-else v-bind:style="{ border: 'solid 2px', borderColor : '#F59B9B' }"><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
                                        
+=======
+
+                                        <span v-if="week.user != ''" v-bind:title="getWorkerOfWeek(week.user.$oid)"><p  v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
+                                        <span v-else v-bind:style="{border:'solid 2px #EE9285'}" title="Personne n'est affecté à cette semaine"><p  v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
+
+>>>>>>> Stashed changes
                                         <div style="display:none" class="_contentWeekTile" >
                                             <p>{{ week['weekDate'] }}</p>
                                             <i v-on:click="unsetDisplayTile" style="color:red" class="fas fa-times fa-sm"></i>
@@ -74,7 +81,9 @@
     <script>
 
 Vue.component('bar-chart',{
+
     extends : VueChartJs.Bar,
+    name:'statDayOfWork',
     mounted(){
         
         this.fillData();  
@@ -162,7 +171,7 @@ Vue.component('bar-chart',{
 
                 },
                 responsive: true,
-				maintainAspectRatio: true,
+				maintainAspectRatio: false,
 				height: 200
             });
 
@@ -198,6 +207,7 @@ Vue.component('bar-chart',{
                         
                     });
             },
+<<<<<<< Updated upstream
             getWorkerOfWeek:function(id)
             {
                 console.log(id);
@@ -210,6 +220,17 @@ Vue.component('bar-chart',{
                 }
             
                 return worker+=" travaille cette semaine."
+=======
+            getWorkerOfWeek:function(id){
+                
+                let worker="";
+                for(var emp of this.sessionEmploye)
+                {
+                    worker =  id==emp._id.$oid ? emp.prenom : worker;
+                   
+                }
+                return worker+=" est affecté à cette semaine";
+>>>>>>> Stashed changes
             },
             beforeStyle:function(ul)
             {
@@ -230,7 +251,7 @@ Vue.component('bar-chart',{
             setWeekEmp:function(emp, week,indexWeek, year,event)
             {
          
-                axios.get('../controller/controller.php?ctrl=calendar&fc=setEmpOfWeek&emp='+emp.$oid+'&week='+week._id.$oid+'&year='+year)
+                axios.get(`../controller/controller.php?ctrl=calendar&fc=setEmpOfWeek&emp=${emp.$oid}&week=${week._id.$oid}&year=${year}`)
                     .then(response=>{
                         console.log(response);
                         this.sessionWeek[year][indexWeek]['user'] = emp;
@@ -242,7 +263,7 @@ Vue.component('bar-chart',{
             setWeekEmpToNull:function(week,indexWeek,year,event)
             {
                 
-                axios.get('../controller/controller.php?ctrl=calendar&fc=setToNull&week='+week._id.$oid+'&year='+year)
+                axios.get(`../controller/controller.php?ctrl=calendar&fc=setEmpOfWeek&week=${week._id.$oid}&year=${year}`)
                     .then(response=>{
                         console.log(response);
                         this.sessionWeek[year][indexWeek]['user'] = "";

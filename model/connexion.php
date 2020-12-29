@@ -13,10 +13,14 @@ class Connexion{
 
    public function doConnect(){
         try{
+<<<<<<< Updated upstream
             $this->_manager = new MongoDB\Driver\Manager("mongodb+srv://{$this->_identifiant}:{$this->_password}@cluster0.hychf.mongodb.net/Planning?retryWrites=true&w=majority");
+=======
+            $this->_manager = new MongoDB\Driver\Manager("mongodb+srv://{$this->_identifiant}:{$this->_password}@cluster0.hychf.mongodb.net/test");
+>>>>>>> Stashed changes
         }catch(MongoDB\Driver\Exception\InvalidArgumentException $e )
         {
-                $e->getMessage();
+               echo $e->getMessage();
         }
     }
 
