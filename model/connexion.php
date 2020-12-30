@@ -7,8 +7,9 @@ class Connexion{
     private $_manager;
 
     public function __construct(){
-        $this->_identifiant = "valereAdmin";
-        $this->_password = "bm58ot05";
+        $dotenv = json_decode(file_get_contents('env.json',true));
+        $this->_identifiant = $dotenv->{"IDENTIFIANT"};
+        $this->_password = $dotenv->{'MOT_DE_PASSE'};
    }
 
    public function doConnect(){

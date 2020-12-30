@@ -31,14 +31,13 @@ class CalendarController{
     {
         
         $this->_calendarManager->setEmployeToNull( $tabArgs[0], $tabArgs[1]);
-        //$this->startCalendar();
     }
 
     public function setEmployeOfWeek($tabArgs)
     {
-        
+       
         $this->_calendarManager->setEmployeOfWeek($tabArgs[0], $tabArgs[1], $tabArgs[2]);
-        //$this->startCalendar();
+
     }
 
     public function getStatistics(){
