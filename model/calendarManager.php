@@ -8,7 +8,7 @@ class CalendarManager{
         $this->_managerDb = $db;
     }
 
-    public function getListEmploye()
+    public function getListEmploye()//return the full list of employe
     {
         $filter = [];
         $option = [];
@@ -18,14 +18,12 @@ class CalendarManager{
         $employe = [];
         foreach($cursor as $emp)
         {
-                
-        
-                array_push($employe,$emp);
+                array_push($employe,$emp);//each result of the cursor result is push to the response array
         }
         return $employe;
     }
 
-    public function getListWeek()
+    public function getListWeek()//add each week in the right year array
     {
         $listeSemaine = ["2017"=>[],'2018'=>[],'2019'=>[],'2020'=>[]];
         $filter = [];
@@ -39,16 +37,13 @@ class CalendarManager{
             foreach($cursor as $sem)
             {
                     
-                     array_push($listeSemaine[$key],$sem);
+                     array_push($listeSemaine[$key],$sem);//each result of the cursor result is push to the response array
             }
-            
-            
         }
-      
         return $listeSemaine; 
     }
 
-    public function setEmployeToNull($week, $year)
+    public function setEmployeToNull($week, $year)//pull of the user id from the the week($week) of the year($year)
     {
         $week=new MongoDB\BSON\ObjectId($week);
         $filter=array('_id'=>$week);
@@ -56,10 +51,9 @@ class CalendarManager{
         $updates = new MongoDB\Driver\BulkWrite();
         $updates->update($filter,$maj);
         $result = $this->_managerDb->executeBulkWrite('Planning.year'.$year, $updates) ;
-        
     }
 
-    public function setEmployeOfWeek($emp, $week, $year)
+    public function setEmployeOfWeek($emp, $week, $year)//set the user id($emp) from the the week($week) of the year($year)
     {
         $week=new MongoDB\BSON\ObjectId($week);
         $emp=new MongoDB\BSON\ObjectId($emp);
@@ -71,17 +65,18 @@ class CalendarManager{
 
     }
 
-    public function getStatistics()
+    public function getStatistics()//get number of working week per year and per employe
     {
         $listeSemaine = ["2017"=>[],'2018'=>[],'2019'=>[],'2020'=>[]];
 
         //Exécution de la requête
         foreach($listeSemaine as $key=>$value)
         {
-           
-            
-           
             $command = new MongoDB\Driver\Command([
+                //to do so, we make an aggregation on the employes collection. Lookup allows  to make a join with the collection of the year, 
+                //matching the user id with the user id of the week. The result will be an array (dayOn) with all working week of the user
+                //Then we add (nbDayOfWork) a field to return the size of dayOn
+                //Finally we return the result by a projection of the prenom field, couleur field and nbDayOfWork
                 'aggregate' => 'employes',
                 'pipeline' => [
                             [
@@ -114,12 +109,9 @@ class CalendarManager{
         
             foreach($cursor as $res)
             {
-                
-                     array_push($listeSemaine[$key],$res);
+                     array_push($listeSemaine[$key],$res);//each result of the cursor result is push to the response array
             }
             
-            
-          
         }
        
         return $listeSemaine;

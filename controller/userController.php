@@ -1,8 +1,9 @@
 <?php
 class userController{
-    private $_userManager;
-    private $_user;
-    private $_redirectTab;
+
+    private $_userManager;//User manager from the model directory
+    private $_user;//User from the model directory
+    private $_redirectTab;//Array to lead the controller to the correct page. Prevent from repeating header('Location...')
 
     public function __construct($collect)
     {
@@ -16,17 +17,18 @@ class userController{
 
     }
 
+    //Log the user if he logged up before
     public function doLogin(){
         $redirect ="";
-        if(isset($_POST['staticEmail']) && isset($_POST['inputPassword']) && $_POST['staticEmail'] != "" && $_POST['inputPassword'] !="")
+        if(isset($_POST['staticEmail']) && isset($_POST['inputPassword']) && $_POST['staticEmail'] != "" && $_POST['inputPassword'] !="")//check if the form is well fill
         {
             $userTabFilter=array(
                 '$and' =>array(
                         ['email' => $_POST['staticEmail']],
                           ['password' => $_POST['inputPassword']])
-            );
+            );//For the filter used on UserManager
 
-            if($result = $this->_userManager->getUserByPassAndEmail($userTabFilter) != null)
+            if($result = $this->_userManager->getUserByPassAndEmail($userTabFilter) != null)//return null if the user doesn't exist in DB
             {
                 $user= array(
                     'id' => $result['_id'],
@@ -35,34 +37,35 @@ class userController{
                     'firstname' => $result['firstname'],
                     'lastname' => $result['lastname'],
                     'pseudo' => $result['pseudo']
-                );
-                $this->_user = $this->_userManager->createUser($user);
-                if($this->_user == 'null'){
+                );//Filter used on UserManager
+                $this->_user = $this->_userManager->createUser($user);//Create user, not in DB but, for the session var, as an object
+                if($this->_user == 'null'){//In case the creation didn't work
 
-                    $_SESSION['userStateLogIn'] = ['res'=>'Une erreur a lieu lors de la connexion, veuillez reessayer plus tard.','couleur' => 'red'];
-                    $redirect = "form";
+                    $_SESSION['userStateLogIn'] = ['res'=>'Une erreur a lieu lors de la connexion, veuillez reessayer plus tard.','couleur' => 'red'];//Session var to explain where the error came from
+                    $redirect = "form";//redirect to the form connection
 
-                }else{
-                    ['res'=>'Connexion réussie','couleur' => 'green'];
-                    $redirect = "calendrier";
-                    $_SESSION['user'] =$this->_user;
+                }else{//In case the connexion worked
+                    $_SESSION['userStateLogIn'] = ['res'=>'Connexion réussie','couleur' => 'green'];
+                    $redirect = "calendrier";//redirect to the calendar
+                    $_SESSION['user'] =$this->_user;//Init the session var user with the user created before
                 }
             
             }else{
-                $_SESSION['userStateLogIn'] = ['res'=>'Aucun compte avec votre identifiant et mot de passe existe.','couleur' => 'red'];
-                $redirect = "form";
+                $_SESSION['userStateLogIn'] = ['res'=>'Aucun compte avec votre identifiant et mot de passe existe.','couleur' => 'red'];//Session var to explain where the error came from
+                $redirect = "form";//redirect to the form connection
             }
 
         }else{
-            $_SESSION['userStateLogIn'] = ['res'=>'Veuillez remplir le formulaire correctement.','couleur' => 'red'];
-            $redirect = "form";
+            $_SESSION['userStateLogIn'] = ['res'=>'Veuillez remplir le formulaire correctement.','couleur' => 'red'];//Session var to explain where the error came from
+            $redirect = "form";//redirect to the form connection
         }
-        header("Location : ../{$this->_redirectTab[$redirect]}");
+        header("Location : ../{$this->_redirectTab[$redirect]}");//proceed to redirection
         
 
         
     }
 
+    //Subscribing part
     public function doLogup()
     {
         $redirect="";
@@ -72,29 +75,29 @@ class userController{
             'lastname' => $_POST['inputLastName'],
             'password' => $_POST['inputPassword'],
             'pseudo' => $_POST['inputPseudo'],
-        );
-        if(isset($user['email']) && ($user['email']!="") && isset($user['firstname']) && ($user['firstname']!="") && isset($user['lastname']) && ($user['lastname']!="") && isset($user['password']) && ($user['password']!="") && isset($user['pseudo']) && ($user['pseudo']!=""))
+        );//For the filter used on UserManager
+        if(isset($user['email']) && ($user['email']!="") && isset($user['firstname']) && ($user['firstname']!="") && isset($user['lastname']) && ($user['lastname']!="") && isset($user['password']) && ($user['password']!="") && isset($user['pseudo']) && ($user['pseudo']!=""))//check if the form is well fill
         {
-            $idNewAdd = $this->_userManager->addUser($user);
+            $idNewAdd = $this->_userManager->addUser($user);//So the user manager can add the new user. Return the id if the add worked, null if he already exists
             
-            if($_SESSION['userStateLogUp'] = $idNewAdd == 'null')
+            if($_SESSION['userStateLogUp'] = $idNewAdd == 'null')//if null
             {
-                $_SESSION['userStateLogUp'] =['res'=>'Un compte avec votre identifiant et mot de passe existe déjà','couleur' => 'red'];
-                $redirect = "form";
+                $_SESSION['userStateLogUp'] =['res'=>'Un compte avec votre identifiant et mot de passe existe déjà','couleur' => 'red'];//Session var to explain where the error came from
+                $redirect = "form";//redirect to the form connection
             }else{
-                $this->_user = $this->_userManager->createUser($user);
-                ['res'=>'Inscription réussie','couleur' => 'green'];
-                $redirect = "calendrier";
-                $_SESSION['user'] = $this->_user;
+                $this->_user = $this->_userManager->createUser($user);//Create user, not in DB but, for the session var, as an object
+                $_SESSION['userStateLogUp']=['res'=>'Inscription réussie','couleur' => 'green'];
+                $redirect = "calendrier";//redirect to the calendar
+                $_SESSION['user'] = $this->_user;//Init the session var user with the user created before
 
             }
             
 
         }else{
-            $_SESSION['userStateLogUp'] = ['res'=>'Veuillez remplir le formulaire correctement','couleur' => 'red'];
-            $redirect = "form";
+            $_SESSION['userStateLogUp'] = ['res'=>'Veuillez remplir le formulaire correctement','couleur' => 'red'];//Session var to explain where the error came from
+            $redirect = "form";//redirect to the form connection
         }
-        header("Location : ../{$this->_redirectTab[$redirect]}");
+        header("Location : ../{$this->_redirectTab[$redirect]}");//proceed to redirection
     }
 
 

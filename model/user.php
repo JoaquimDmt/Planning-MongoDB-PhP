@@ -11,6 +11,7 @@ class user {
         $this->_id = $id;
 
     }
+    //to set all the data to this user
     public function hydrate($donnees)
     {
         foreach($donnees as $key => $value)
@@ -23,6 +24,7 @@ class user {
         }
     }
 
+    //getter and setter
     public function getId(){return $this->_id;}
     public function getEmail(){return $this->_email;}
     public function getFirstname(){return $this->_firstname;}

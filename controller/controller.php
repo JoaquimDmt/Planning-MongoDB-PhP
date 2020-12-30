@@ -1,13 +1,23 @@
 <?php
-    session_start();
+
+    if(!isset($_SESSION))
+	{
+		session_start();
+    }//start session if is not.
+
     require_once('../model/connexion.php');
     $dbInstance = new Connexion();
     $dbInstance->doConnect();
-    $collection = $dbInstance->getManagerDB();
+    $collection = $dbInstance->getManagerDB();//Do a connection to the DB
     
-    $fc=$_GET['fc'];
-    $src = $_GET['ctrl'];
-    $empToAct = ['emp'=>$_GET['emp']==null ?"":$_GET['emp'],'week'=>$_GET['week']==null ?"":$_GET['week'], 'year' =>$_GET['year']==null ?"":$_GET['year']];
+    $fc=$_GET['fc'];//Fonction to execute
+    $src = $_GET['ctrl'];//Which controller the link will leads on
+    $empToAct = [
+                    'emp'=>$_GET['emp']==null ?"":$_GET['emp'],
+                    'week'=>$_GET['week']==null ?"":$_GET['week'], 
+                    'year' =>$_GET['year']==null ?"":$_GET['year']
+    ];//Array includes Employe that will be add or remove from a week, the week and the year
+
     $map = array(
            'user' => array(
                             'login'=>array('method'=>'doLogin','args'=>""),
@@ -20,17 +30,17 @@
                             'statistics' => array("method"=>'getStatistics', 'args'=>"")
                             )
 
-           );
+    );//This array is like a map matching with the right controller and the right method then.
     
 
     
    
-    require_once('./'.$src.'Controller.php');
+    require_once('./'.$src.'Controller.php');//Call the controller that will be needed
     $curControler = $src.'Controller';
-    $curControler = new $curControler($collection);
+    $curControler = new $curControler($collection);//Create new controller
     
-    $method = $map[$src][$fc]['method'];
-    $curControler->$method($map[$src][$fc]['args']);
+    $method = $map[$src][$fc]['method'];//assembling the method
+    $curControler->$method($map[$src][$fc]['args']);//executes the method
 
 
 ?>

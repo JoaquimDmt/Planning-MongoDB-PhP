@@ -10,7 +10,7 @@ class userManager{
         $this->_managerDb = $db;
     }
 
-    public function getUserById($id){
+    public function getUserById($id){//return the user by his ID
 
         $filter = ['id' => $id];
         $option = [];
@@ -23,18 +23,18 @@ class userManager{
         }
     }
 
-    public function getUserByPassAndEmail($tabFilter){
+    public function getUserByPassAndEmail($tabFilter){//Return user by his password and email
 
-        return $user = $this->testExistUser($tabFilter);
+        return $user = $this->testExistUser($tabFilter);//Test if he exists  and return the user or null then
     }
 
-    public function addUser($tabUser)
+    public function addUser($tabUser)//add user to the DB
     {
         //On insère le nouvel uilisateur
-        if($this->testExistUser($tabUser) == null)
+        if($this->testExistUser($tabUser) == null)//Test if he has been added before and return the user(we will set an error then) or null (we can add it  then)
         {
             $single_insert = new MongoDB\Driver\BulkWrite();
-            $newAddId = $single_insert->insert($tabUser);
+            $newAddId = $single_insert->insert($tabUser);//return the id of the new add
             // Création d'une nouvel objet de la collection "users"
             $this->_managerDb->executeBulkWrite('Planning.users', $single_insert) ;
             
@@ -42,17 +42,17 @@ class userManager{
             $newAddId = 'null';
         }
         
-        return $newAddId;
+        return $newAddId;//return null of the id
     }
 
-    public function createUser($userTab){
+    public function createUser($userTab){//create the user as a PHP object
 
         $user = new User($userTab['id'][0]);
         $user->hydrate($userTab);
         return $user;
     }
 
-    public function testExistUser($tabFilter)
+    public function testExistUser($tabFilter)//test if the user already exists
     {
         
             $option = [];
@@ -62,8 +62,7 @@ class userManager{
             //On vérifie si le resultat de la requete existe
             foreach($cursor as $user)
             {
-                
-                $userExist = $user ? $user : null;
+                $userExist = $user ? $user : null;//set to the user value if exists, null insted
             }
             return $userExist;
     }
