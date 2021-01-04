@@ -4,7 +4,6 @@ class CalendarManager{
     private $_managerDb;
     public function __construct($db)
     {
-        require_once('connexion.php');
         $this->_managerDb = $db;
     }
 

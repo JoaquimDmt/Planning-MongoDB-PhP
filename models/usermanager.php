@@ -5,7 +5,6 @@ class userManager{
 
     public function __construct($db)
     {
-        require_once('connexion.php');
         require_once('user.php');
         $this->_managerDb = $db;
     }
