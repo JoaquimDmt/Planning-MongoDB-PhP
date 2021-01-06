@@ -54,7 +54,7 @@ class CalendarManager{
 
     public function setEmployeOfWeek($emp, $week, $year)//set the user id($emp) from the the week($week) of the year($year)
     {
-        var_dump($week.' '.$emp);
+        
         $week=new MongoDB\BSON\ObjectId($week);
         $emp=new MongoDB\BSON\ObjectId($emp);
         $filter=['_id'=>$week];
