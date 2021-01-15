@@ -24,8 +24,8 @@ class UserController{
         {
             $userTabFilter=array(
                 '$and' =>array(
-                        ['email' => $_POST['staticEmail']],
-                          ['password' => $_POST['inputPassword']])
+                        ['email' =>$_POST['staticEmail']],
+                          ['password' => sha1($_POST['inputPassword'])])
             );//For the filter used on UserManager
 
             if($result = $this->_userManager->getUserByPassAndEmail($userTabFilter) != null)//return null if the user doesn't exist in DB
@@ -73,7 +73,7 @@ class UserController{
             'email' => $_POST['staticEmail'],
             'firstname' => $_POST['inputFirstName'],
             'lastname' => $_POST['inputLastName'],
-            'password' => $_POST['inputPassword'],
+            'password' => sha1($_POST['inputPassword']),
             'pseudo' => $_POST['inputPseudo'],
         );//For the filter used on UserManager
         if(isset($user['email']) && ($user['email']!="") && isset($user['firstname']) && ($user['firstname']!="") && isset($user['lastname']) && ($user['lastname']!="") && isset($user['password']) && ($user['password']!="") && isset($user['pseudo']) && ($user['pseudo']!=""))//check if the form is well fill
@@ -98,6 +98,13 @@ class UserController{
             $redirect = "form";//redirect to the form connection
         }
         header("Location : ../{$this->_redirectTab[$redirect]}");//proceed to redirection
+    }
+
+    public function disconnect(){
+        $redirect="";
+        session_destroy();
+        header("Location :../index.php");
+
     }
 
 

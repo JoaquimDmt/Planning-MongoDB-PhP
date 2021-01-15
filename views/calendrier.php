@@ -19,7 +19,7 @@
     <body>
         <div id="app">
             <div id="_headMainGrid">
-                <div id="_headPanelSetWeek"></div>
+                <div id="_headPanelSetWeek"><form action="../controllers/controller.php?ctrl=user&fc=disconnect" method="post"><input type="submit" id="disconnectBtn" value="Se déconnecter"></form></div>
                 <div id="_headCalendar">
                     <span  v-on:click="i = i-1 <0 ? i : i-1" id="_prevBtn" class="_changeYear fas fa-angle-left"></span>
                         <span v-bind:key="yearList[i]" id="_year">{{ yearList[i] }}</span>
@@ -42,8 +42,8 @@
                         <transition-group name="yearChange" tag="div"  id="_contentCalendar">
                                     <div v-for="(week,index) in sessionWeek[yearList[i]]" v-bind:key="week._id.$oid" class="_weekTile" v-bind:name="week._id.$oid+yearList[i]">
         
-                                        <span v-if="week.user != '' " v-bind:title="getWorkerOfWeek(week.user.$oid)"><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
-                                        <span v-else v-bind:style="{ border: 'solid 2px', borderColor : '#F59B9B' }"><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
+                                        <span v-if="week.user != '' " v-bind:title="getWorkerOfWeek(week.user.$oid,'prenom') " v-bind:style="{ backgroundColor : computedColor(getWorkerOfWeek(week.user.$oid,'couleur')) }"><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
+                                        <span v-else><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
                                        
                                         <div style="display:none" class="_contentWeekTile" >
                                             <p>{{ week['weekDate'] }}</p>
@@ -51,13 +51,13 @@
                                                 
                                                 <ul>
                                                     <span v-for="ul in sessionEmploye.slice(0,Math.ceil(sessionEmploye.length/2))">
-                                                                <li  v-if="ul._id.$oid == week.user.$oid"class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, yearList[i] ,$event)" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
+                                                                <li  v-if="ul._id.$oid == week.user.$oid"class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, yearList[i])" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
                                                                 <li  v-else class="liEmp fas fa-circle" v-on:click="setWeekEmp(ul._id, week ,index, yearList[i] ,$event)">{{ ul.prenom }}</li>
                                                     </span>
                                                 </ul>
                                                 <ul>
                                                     <span v-for="ul in sessionEmploye.slice(Math.ceil(sessionEmploye.length/2))">
-                                                                <li  v-if="ul._id.$oid == week.user.$oid" class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, yearList[i] ,$event)" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
+                                                                <li  v-if="ul._id.$oid == week.user.$oid" class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, yearList[i])" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
                                                                 <li  v-else class="liEmp fas fa-circle" v-on:click="setWeekEmp(ul._id, week ,index, yearList[i] ,$event)">{{ ul.prenom }}</li>
                                                     </span>
                                                 
@@ -72,24 +72,28 @@
     </body>
 
     <script>
-
+/*This component is extends from bar-chart and used by VueChartJs*/
 Vue.component('bar-chart',{
 
     extends : VueChartJs.Bar,
     name:'statDayOfWork',
-    mounted(){
+    mounted(){//Once the application has been mounted the chart is filled so the data can be displayed on the chart
         
         this.fillData();  
     },
-    data (){
+    data (){//data used by the chart
         return {
-            labelsName :[],
-            rows :[],
+            labelsName :[],//x Axes with the name
+            rows :[],//y Axes with number of week
             colorBorder:[],
             colorBackground:[]    
         }
     },
     methods:{
+        /**
+            this method fill the data into the labelsName and rows data
+            By sendinf a get request to the controller and the manager then, we can get back statistics
+         */
         fillData : function(){
 
             this.$refs.canvas.parentNode.style.width ="100%";
@@ -98,23 +102,29 @@ Vue.component('bar-chart',{
             this.$refs.canvas.style.height ="100%";
 
             axios.get('../controllers/controller.php?ctrl=calendar&fc=statistics')
-            .then(response =>{
-                this.labelsName.splice(0);
-                this.rows.splice(0);
-                this.colorBorder.splice(0);
-                this.colorBackground.splice(0);
-                
-                for(el of response.data[this.$parent.yearList[this.$parent.i]])
-                {     
-                    this.labelsName.push(el.prenom);
-                    this.rows.push(el.nbDayOfWork);
-                    this.colorBorder.push('rgb('+el.couleur+')');
-                    this.colorBackground.push('rgb('+el.couleur+',0.5)');
-                }
-                this.setChart();
-            }).catch(error=>{
-                        
-            });
+                .then(response =>{
+                    /**
+                    So the data can be reload because at each either add or remove event detected the chart is reset
+                     */
+                    this.labelsName.splice(0);
+                    this.rows.splice(0);
+                    this.colorBorder.splice(0);
+                    this.colorBackground.splice(0);
+                    
+
+                    //Iterate on the result to fill the data 
+                    for(el of response.data[this.$parent.yearList[this.$parent.i]])
+                    {     
+                        this.labelsName.push(el.prenom);
+                        this.rows.push(el.nbDayOfWork);
+                        this.colorBorder.push('rgb('+el.couleur+')');
+                        this.colorBackground.push('rgb('+el.couleur+',0.5)');
+                    }
+                    //Once it's done, we set the chart with the news datas.
+                    this.setChart();
+                }).catch(error=>{
+                            
+                });
         },
         setChart : function(){ 
             this.renderChart({
@@ -165,7 +175,6 @@ Vue.component('bar-chart',{
                 },
                 responsive: true,
 				maintainAspectRatio: false,
-				height: 200
             });
 
         }
@@ -179,8 +188,6 @@ Vue.component('bar-chart',{
             i : 0,
             sessionWeek :"",
             sessionEmploye:"",
-          
-            
         },
         created(){
             this.initVar();
@@ -189,6 +196,10 @@ Vue.component('bar-chart',{
             this.$children[0].fillData();
         },
         methods: {
+            /**
+            init the required data to set all the application.
+            A get request has been done to do so.
+             */
             initVar : function(){
                 axios.get('../controllers/controller.php?ctrl=calendar&fc=start')
                     .then(response=>{
@@ -200,50 +211,77 @@ Vue.component('bar-chart',{
                         
                     });
             },
-            getWorkerOfWeek:function(id){
+            /**
+            return the employe of the week with a specific information about him (2nd argument)
+             */
+            getWorkerOfWeek:function(id, propToReturn){
                 
                 let worker="";
                 for(var emp of this.sessionEmploye)
                 {
-                    worker =  id==emp._id.$oid ? emp.prenom : worker;
-                   
+                    worker =  id==emp._id.$oid ? emp : worker;
                 }
-                return worker+=" est affecté à cette semaine";
+                return worker[propToReturn];
             },
+            /**
+            to return a color with the rgb value. Used to set the bg Color of the little tile. As it we can see immediatly who's working at one specific day
+             */
+            computedColor : function(valColor){
+                return `rgb(${valColor})`
+                
+            },
+            /**
+            To set some style color for each point in front of each name in the big tile
+             */
             beforeStyle:function(ul)
             {
                 return{
                     '--clLi':'rgb('+ul.couleur+')'
                 }
             },
+            /**
+            Here, the opposit from unsetDisplayTile
+             */
             setDisplayTile: function(event){
                 event.target.parentNode.style.display='none';
                 event.target.parentNode.parentNode.children[1].style.display='grid';
                 
             },
+            /**
+            To close the big tile with all the names to replace it by the little tile with the date only
+             */
             unsetDisplayTile: function(event){
                 event.target.parentNode.style.display='none';
                 event.target.parentNode.parentNode.children[0].style.display='grid';
             
             },
-            setWeekEmp:function(emp, week,indexWeek, year,event)
+            /**
+            When the user pull of the current worker and set it by the new one
+            Then a get request is done so the controller inform the model about the change.
+            we need the id of the week, the indexOf The week to set the sessionWeek table with new value at the exact week. 
+            we need the id of the employe and the year as well
+             */
+            setWeekEmp:function(emp, week,indexWeek, year)
             {
          
                 axios.get(`../controllers/controller.php?ctrl=calendar&fc=setEmpOfWeek&emp=${emp.$oid}&week=${week._id.$oid}&year=${year}`)
                     .then(response=>{
-                        console.log(response);
                         this.sessionWeek[year][indexWeek]['user'] = emp;
                     }).catch(error=>{
                         
                     });
                 
             },
-            setWeekEmpToNull:function(week,indexWeek,year,event)
+            /**
+            When the user pull of the current worker and set it to null
+            Then a get request is done so the controller inform the model about the change.
+            we need the id of the week, the indexOf The week to set the sessionWeek table with new value at the exact week, and we nedd the year as well.
+             */
+            setWeekEmpToNull:function(week,indexWeek,year)
             {
                 
                 axios.get(`../controllers/controller.php?ctrl=calendar&fc=setToNull&week=${week._id.$oid}&year=${year}`)
                     .then(response=>{
-                        console.log(response);
                         this.sessionWeek[year][indexWeek]['user'] = "";
                     }).catch(error=>{
 

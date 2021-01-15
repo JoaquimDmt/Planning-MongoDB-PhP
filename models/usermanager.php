@@ -53,7 +53,7 @@ class userManager{
 
     public function testExistUser($tabFilter)//test if the user already exists
     {
-        
+            
             $option = [];
             $read = new MongoDB\Driver\Query($tabFilter, $option);
             //Exécution de la requête

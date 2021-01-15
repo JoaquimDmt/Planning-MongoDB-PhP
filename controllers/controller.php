@@ -21,7 +21,8 @@
     $map = array(
            'user' => array(
                             'login'=>array('method'=>'doLogin','args'=>""),
-                            'logup'=>array('method'=>'doLogup','args'=>"")
+                            'logup'=>array('method'=>'doLogup','args'=>""),
+                            'disconnect'=>array('method'=>'disconnect','args'=>"")
             ),
             'calendar' => array(
                             'start' => array('method'=>'startCalendar','args'=>""),
