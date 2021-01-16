@@ -1,0 +1,128 @@
+--------------STRUCTURE DU PROJET
+
+Le projet est construit selon le design pattern MVC.
+L'arborescence est donc la suivante : 
+    >index.php
+    > views
+        >form.php
+        >calendrier.php
+        >form.css
+        >calendar.css
+
+    >controllers
+        >controller.php
+        >calendarController.php
+        userController.php
+
+    >models
+        connexion.php
+        calendarManager.php
+        user.php
+        usermanager.php
+
+-----------------VIEWS
+---form.php
+Il s'agit de la page d'acceuil. Deux formulaires sont à dispositions de l'utilisateurs à savoir l'un pour se connecter, l'autre pour s'inscrire.
+---form.css
+Tout le style associé à form.php
+
+---calendrier.php
+Cette page a entièrement été développé en utilisant le framework vuejs
+Divers méthode ont été developpé pour rendre fonctionnel la vue du calendrier : 
+
+**** yearList : ['2017', '2018', '2019','2020'] est un tableau qui permet de changer l'année en cours de visualisation ainsi les données du calendrier changent également.
+
+**** initVar() Permet de demander au controller de transmettre les données de la bdd pour les afficher dans la vue. Avec le retour on attribu une valeur à deux variables locales :
+sessionWeek qui va stocker les calendriers de chaque année et  sessionEmploye qui contient la liste des employe. Ainsi pas besoin de faire de requête au controller pour afficher les informations
+des autres années.(Voir startCalendar() dans calendarController.php)
+
+**** getWorkerOfWeek() Permet de retourner l'employe de la semaine avec une information spécifique. 
+L'employe étant stocké dans une  JS locale qui regroupe tous les employes (un tableau). 
+
+**** setWeekEmp() Permet de mettre à jour quel employé travaille tel semaine - De remplacer le tavailleur courant par le nouveau ou d'attribuer un travailleur à une semaine ou personne ne travaille.
+Une requète GET est envoyé au controller afin d'effectué la fonction adéquate et faire le changement en bdd
+
+**** setWeekEmpToNull() Fait la même action que précédemment mais pour mettre à null le travailleur de la semaine.
+
+**** fillData() Afin d'afficher les statistiques des semaines un graphique à été mis en place. Cette méthode permet de demander au controller, via une requète GET 
+d'aller chercher les informations necessaires au bon remplissage du graphique.
+---calendar.css
+Tout le style assoccié à calendrier.php
+
+-----------------CONTROLLERS
+---controller.php
+Agit comme un aiguilleur. Il permet de rediriger la requête envoyée par la vue vers le bon controller, ici userController ou calendarController
+Il possède une propriété map joue le rôle de l'aiguilleur. Il s'agit d'un tableau indexé. Le premier niveau permet de savoir quel controller va être utilisé, le second
+est pour la méthode à appeler dans ce controller. Cela permet notemment une simplification des noms de controller et de méthode à passer en argument dans la requète GET envoyée par la vue.
+
+---userController.php
+Bien sûr, chaque méthodes dans le controller sont des méthodes qui vont appeler des méthodes du manager, car c'est le model qui gère l'échange avec la BDD.
+Ici deux méthodes : 
+
+**** doLogin() qui permet récuperer les informations du formulaire de connection
+Un premier test est effectué pour savoir si les champs ont bien été saisis.
+Si tel est le cas, on va récuperer le user via un méthode de userManager (voir getUserByPassAndEmail()). Si le retour est null alors le user n'existe pas et une erreur est 
+retournée et une redirection a lieu vers la page du formulaire. Sinon, un objet user est créé (voir user.php) puis la redirection est effectuée vers le calendrier.
+
+**** doLogup() effectue la même action que précédemment mais dans le cas où l'utilisateur s'inscrit. A l'inverse, si il existe déjà, une erreur est retournée. 
+Sinon l'inscription a bien lieu et la redirection se fait vers le calendrier.
+
+Ce qui n'est pas implémenté ici c'est qu'il n'est pas possible de changer certaines informations du compte de l'utilisateur.
+
+On a aussi décidé de voir les choses de cette manière :
+L'utilisateur qui crée un compte ou qui en possède un agit comme un contremaitre sur ses employés. Ainsi les employés ne peuvent avoir accés aux planning pour le modifier.
+
+---calendarController.php
+Bien sûr, chaque méthodes dans le controller sont des méthodes qui vont appeler des méthodes du manager, car c'est le model qui gère l'échange avec la BDD.
+(Ainsi plus d'explications seront faites sur les méthodes dans le manager)
+Ici plusieurs méthodes qui permettent un traitement sur le calendrier : 
+
+**** startCalendar() qui permet de récuperer la liste des employés ainsi que le calendrier tel qu'il est présent dans la base de donnée.
+**** getAllEmploye() est une méthode appelé par startCalendar pour récuperer la liste des employés (cela permet de mieux découper le code)
+**** getAllWeek() idem que précédemment mais pour récuperer le calendrier.
+**** setEmployeToNull() permet de retirer un employé d'une semaine spécifique.
+**** setEmployeOfWeek() permet de remplacer un employé par un autre à une certaine semaine.
+**** getStatistics() permet de récuperer certaines données statistiques afin de remplir le graphique.
+
+-----------------MODELS
+---connexion.php
+Permet la connexion à la BDD.
+**** doConnect() effectue la connexion. Une erreur est retourée si celle-ci ne se passe pas bien.
+**** getDb() retourne l'instance la BDD.
+
+---user.php
+Permet de déclarer un objet User.
+**** hydrate() Permet de distribuer les valeurs aux propriétés associées. Utilise pour ça les setter des propriétés.
+Il y aussi les getters et setter des propriétés de User.
+
+---userManager.php
+Classe importante du model car elle permet de gérer les échanges entre l'application et la base de donnée. Ce manager va servir a faire tous ces traitements pour tout ce 
+qui concerne le user. C'est à dire enregistrer qqn en bdd, vérifier sa présence, le supprimer (fonctionnalité non instaurée), le mettre à jour(fonctionnalité non instaurée)
+Ainsi : 
+**** getUserById() Permet de récuperer un utilisateur en utilisant son ID en BDD. Implémentée ici pour l'exercice mais non utilisée. Elle peut s'averer toutefois utile en cas 
+de prolongement de l'application.
+
+**** getUserByPassAndEmail() Permet de récuperer un utilisateur en utilisant son mot de passe et son pseudo. Utile pour les connexions.
+
+**** addUser() Permet d'ajouter un utilisateur en BDD. Celui-ci est alors créé en tant qu'objet au sein de l'application. Ici ce qui est risqué et le fait que les informations
+de l'utilisateur sont mises dans une variable session  afin que l'on puisse l'utiliser n'importe où sur l'application.
+
+**** createUser() Permet de créer l'utilisateur en tant qu'objet (voir User.php)
+
+**** testExistUser() Permet de savoir si un utilisateur existe déjà en base de donnée. L'utilisateur est retourné si c'est le cas, sinon null. Cette fonction 
+est utilisée par addUser et getUserByPassAndEmail
+
+---calendarManager.php
+**** getListEmploye() Permet de retourner la liste des employés présente en BDD. Le driver Mongo est utilisé pour cela. Ici il s'agit d'une simple instruction de lecture en BDD.
+
+**** getListWeek() idem que précédemment, mais retourner chaque document présents dans les collections de chaque année. En Bdd il y a quatre collections qui contiennent chacunes 52 documents représentant chaque semaines.
+
+**** setEmployeToNull() permet de modifier la valeur de l'employe de la semaine dans la BDD. L'année et la semaine est présente dans le tableau filter lors de l'écriture.
+ Puis la ligne correspondante à l'employé (ligne user du document de la semaine en BDD) est modifier par "".
+
+**** setEmployeOfWeek() idem que précédemment mais pour modifier l'identifiant de l'employe de la semaine par un autre.
+
+**** getStatistics() Retourne diverses informations statistiques, ici le nombre de semaine travaillées par employé et par année
+
+
+
