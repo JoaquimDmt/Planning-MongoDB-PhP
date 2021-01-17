@@ -16,7 +16,7 @@
                     'emp'=>$_GET['emp']==null ?"":$_GET['emp'],
                     'week'=>$_GET['week']==null ?"":$_GET['week'], 
                     'year' =>$_GET['year']==null ?"":$_GET['year']
-    ];//Array includes Employe that will be add or remove from a week, the week and the year
+    ];//Array includes Employee that will be add or remove from a week, the week and the year
 
     $map = array(
            'user' => array(
@@ -26,8 +26,8 @@
             ),
             'calendar' => array(
                             'start' => array('method'=>'startCalendar','args'=>""),
-                            'setToNull' => array('method'=>'setEmployeToNull','args'=>array($empToAct['week'],$empToAct['year'])),
-                            'setEmpOfWeek' => array('method'=>'setEmployeOfWeek','args'=>array($empToAct['emp'],$empToAct['week'],$empToAct['year'])),
+                            'setToNull' => array('method'=>'setEmployeeToNull','args'=>array($empToAct['week'],$empToAct['year'])),
+                            'setEmpOfWeek' => array('method'=>'setEmployeeOfWeek','args'=>array($empToAct['emp'],$empToAct['week'],$empToAct['year'])),
                             'statistics' => array("method"=>'getStatistics', 'args'=>"")
                             )
 

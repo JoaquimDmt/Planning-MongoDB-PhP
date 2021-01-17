@@ -9,12 +9,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link type="text/css" rel="stylesheet" href="form.css">
+        <link type="text/css" rel="stylesheet" href="style/form.css">
         
         <title>JSP Page</title>
     </head>
     <body>
-        <div class="container-fluid" style="padding-top: 15%">
+        <div class="container-fluid">
         
       
             <div class="accordion" id="accordionExample">
@@ -62,7 +62,10 @@
                     </div>
                     <?php
                     //si l'utilisateur n'existe pas et que l'inscription s'est bien passé
-                    if(isset($_SESSION['userStateLogUp'])){echo "<h6 style='color:{$_SESSION['userStateLogUp']['couleur']};float : right'>{$_SESSION['userStateLogUp']['res']}</h6>";}  
+                    if(isset($_SESSION['userStateLogUp'])){
+                      echo "<h6 style='color:{$_SESSION['userStateLogUp']['couleur']};float : right; padding-right: 12px;'>
+                        {$_SESSION['userStateLogUp']['res']}
+                      </h6>";}  
                     unset($_SESSION['userStateLogUp']);         
                     ?>
                   </div>
@@ -93,7 +96,10 @@
                   </div>
                   <?php
                     //si l'utilisateur n'existe pas et que l'inscription s'est bien passé
-                    if(isset($_SESSION['userStateLogIn'])){echo "<h6 style='color:{$_SESSION['userStateLogIn']['couleur']};float : right'>{$_SESSION['userStateLogIn']['res']}</h6>";}  
+                    if(isset($_SESSION['userStateLogIn'])){
+                      echo "<h6 style='color:{$_SESSION['userStateLogIn']['couleur']};float : right; padding-left: 1.25rem;'>
+                        {$_SESSION['userStateLogIn']['res']}
+                      </h6>";}  
                     unset($_SESSION['userStateLogIn']);         
                     ?>
                </div>

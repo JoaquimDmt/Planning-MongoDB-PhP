@@ -9,8 +9,8 @@ class user {
 
     public function __construct($id){
         $this->_id = $id;
-
     }
+    
     //to set all the data to this user
     public function hydrate($donnees)
     {

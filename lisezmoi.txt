@@ -1,3 +1,13 @@
+planning
+
+courte description : planning pour un manager qui
+
+fonctionnalités:
+login/register
+affichage d'un planning par année
+pouvoiur attrivuer/retirer une semaine à un employé
+...
+
 --------------STRUCTURE DU PROJET
 
 Le projet est construit selon le design pattern MVC.
@@ -22,7 +32,7 @@ L'arborescence est donc la suivante :
 
 -----------------VIEWS
 ---form.php
-Il s'agit de la page d'acceuil. Deux formulaires sont à dispositions de l'utilisateurs à savoir l'un pour se connecter, l'autre pour s'inscrire.
+Il s'agit de la page d'accueil. Deux formulaires sont à disposition de l'utilisateurs, à savoir l'un pour se connecter, l'autre pour s'inscrire.
 ---form.css
 Tout le style associé à form.php
 
@@ -123,6 +133,3 @@ est utilisée par addUser et getUserByPassAndEmail
 **** setEmployeOfWeek() idem que précédemment mais pour modifier l'identifiant de l'employe de la semaine par un autre.
 
 **** getStatistics() Retourne diverses informations statistiques, ici le nombre de semaine travaillées par employé et par année
-
-
-

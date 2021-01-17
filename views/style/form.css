@@ -3,6 +3,9 @@
 body{
     background-color : #003567 ;
     font-family: 'Sintony', sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
 }
 #accordionExample{
     display: grid;
