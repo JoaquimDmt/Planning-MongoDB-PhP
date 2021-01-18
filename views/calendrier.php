@@ -37,53 +37,68 @@
 
         <div id="mainGrid">
             <div id="_panelSetWeek">
-                <div>Employés
-                    <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </div>
                 <bar-chart v-bind:style="width='100%', height='100%'" :width="100" :height="100"></bar-chart>
             </div>
             <div id="_calendar">
-                <div id=_colTitleCalendar>
-                    <div class="_weekTitle" id="_weekOneTitle">Sem 1 </div>
-                    <div class="_weekTitle" id="_weekTwoTitle">Sem 2</div>
-                    <div class="_weekTitle" id="_weekThreeTitle">Sem 3</div>
-                    <div class="_weekTitle" id="_weekFourTitle">Sem 4</div>
-                </div>
-                
-                <transition-group name="yearChange" tag="div"  id="_contentCalendar">
-                    <div>janvier test</div>
-                    <div v-for="(week,index) in sessionWeek[yearList[i]]" v-bind:key="week._id.$oid" class="_weekTile" v-bind:name="week._id.$oid+yearList[i]">
-                        <span v-on:click="setDisplayTile" v-if="week.user != '' " v-bind:title="getWorkerOfWeek(week.user.$oid,'prenom') " v-bind:style="{ backgroundColor: computedColor(getWorkerOfWeek(week.user.$oid,'couleur'), 0.6), borderColor: computedColor(getWorkerOfWeek(week.user.$oid,'couleur'), 1) }">
-                            <p v-on:click="setDisplayTileChild">{{ week['weekDate'] }}</p>
-                        </span>
-                        <span v-else v-on:click="setDisplayTile"><p v-on:click="setDisplayTileChild">{{ week['weekDate'] }}</p></span>
-                        
-                        <div style="display:none" class="_contentWeekTile" >
-                            <p>{{ week['weekDate'] }}</p>
-                            <i v-on:click="unsetDisplayTile" style="color:red" class="fas fa-times fa-sm"></i>
-                                
-                            <ul>
-                                <span v-for="ul in sessionEmployee.slice(0,Math.ceil(sessionEmployee.length/2))">
-                                        <li  v-if="ul._id.$oid == week.user.$oid"class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, yearList[i])" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
-                                        <li  v-else class="liEmp fas fa-circle" v-on:click="setWeekEmp(ul._id, week ,index, yearList[i] ,$event)">{{ ul.prenom }}</li>
-                                </span>
-                            </ul>
-                            <ul>
-                                <span v-for="ul in sessionEmployee.slice(Math.ceil(sessionEmployee.length/2))">
-                                        <li  v-if="ul._id.$oid == week.user.$oid" class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, yearList[i])" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
-                                        <li  v-else class="liEmp fas fa-circle" v-on:click="setWeekEmp(ul._id, week ,index, yearList[i] ,$event)">{{ ul.prenom }}</li>
-                                </span>
-                            
-                            </ul>
+
+                <div class="calendar-container">
+
+                    <div class="months">
+                        <ul>
+                            <li>Jan</li>
+                            <li>Fév</li>
+                            <li>Mar</li>
+                            <li>Avr</li>
+                            <li>Mai</li>
+                            <li>Jun</li>
+                            <li>Jul</li>
+                            <li>Aou</li>
+                            <li>Sep</li>
+                            <li>Oct</li>
+                            <li>Nov</li>
+                            <li>Déc</li>
+                        </ul>
+                    </div>
+
+                    <div class="weeks-table">
+                        <div id=_colTitleCalendar>
+                            <div class="_weekTitle" id="_weekOneTitle">Sem 1 </div>
+                            <div class="_weekTitle" id="_weekTwoTitle">Sem 2</div>
+                            <div class="_weekTitle" id="_weekThreeTitle">Sem 3</div>
+                            <div class="_weekTitle" id="_weekFourTitle">Sem 4</div>
                         </div>
+                    
+                        <transition-group name="yearChange" tag="div"  id="_contentCalendar">
+                            <div v-for="(week,index) in sessionWeek[yearList[i]]" v-bind:key="week._id.$oid" class="_weekTile" v-bind:name="week._id.$oid+yearList[i]">
+                                <span v-on:click="setDisplayTile" v-if="week.user != '' " v-bind:title="getWorkerOfWeek(week.user.$oid,'prenom') " v-bind:style="{ backgroundColor: computedColor(getWorkerOfWeek(week.user.$oid,'couleur'), 0.6), borderColor: computedColor(getWorkerOfWeek(week.user.$oid,'couleur'), 1) }">
+                                    <p v-on:click="setDisplayTileChild">{{ week['weekDate'] }}</p>
+                                </span>
+                                <span v-else v-on:click="setDisplayTile"><p v-on:click="setDisplayTileChild">{{ week['weekDate'] }}</p></span>
+                                
+                                <div style="display:none" class="_contentWeekTile" >
+                                    <p>{{ week['weekDate'] }}</p>
+                                    <i v-on:click="unsetDisplayTile" style="color:red" class="fas fa-times fa-sm"></i>
+                                        
+                                    <ul>
+                                        <span v-for="ul in sessionEmployee.slice(0,Math.ceil(sessionEmployee.length/2))">
+                                                <li  v-if="ul._id.$oid == week.user.$oid"class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, yearList[i])" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
+                                                <li  v-else class="liEmp fas fa-circle" v-on:click="setWeekEmp(ul._id, week ,index, yearList[i] ,$event)">{{ ul.prenom }}</li>
+                                        </span>
+                                    </ul>
+                                    <ul>
+                                        <span v-for="ul in sessionEmployee.slice(Math.ceil(sessionEmployee.length/2))">
+                                                <li  v-if="ul._id.$oid == week.user.$oid" class="liEmp fas fa-circle" v-on:click="setWeekEmpToNull( week ,index, yearList[i])" v-bind:style="beforeStyle(ul)">{{ ul.prenom }}</li>
+                                                <li  v-else class="liEmp fas fa-circle" v-on:click="setWeekEmp(ul._id, week ,index, yearList[i] ,$event)">{{ ul.prenom }}</li>
+                                        </span>
+                                    
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </transition-group>
 
                     </div>
-                </transition-group>
+                </div>
 
             </div>
         </div>
