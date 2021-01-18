@@ -1,7 +1,10 @@
 <?php if(!isset($_SESSION))
 	{
+        require_once('../models/user.php');
 		session_start();
     }
+    if(!isset($_SESSION['user']))
+        header('Location : ../controllers/controller.php?ctrl=user&fc=disconnect');
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +28,7 @@
                     <div style="padding-left: 16px;">
                    
                 </div>
+                <?php echo $_SESSION['user']->getPseudo() ?>
                     <input type="submit" id="disconnectBtn" value="Se déconnecter">
                 </form>
             </div>
@@ -37,12 +41,9 @@
 
         <div id="mainGrid">
             <div id="_panelSetWeek">
-                <div>Employés
+                <div id="_listEmployee"><h3>Liste des employé(e)s</h3>
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li v-for="(emp,index) in sessionEmployee" :key="index">{{ emp.prenom }}</li>
                     </ul>
                 </div>
                 <bar-chart v-bind:style="width='100%', height='100%'" :width="100" :height="100"></bar-chart>
@@ -56,12 +57,11 @@
                 </div>
                 
                 <transition-group name="yearChange" tag="div"  id="_contentCalendar">
-                    <div>janvier test</div>
                     <div v-for="(week,index) in sessionWeek[yearList[i]]" v-bind:key="week._id.$oid" class="_weekTile" v-bind:name="week._id.$oid+yearList[i]">
-                        <span v-on:click="setDisplayTile" v-if="week.user != '' " v-bind:title="getWorkerOfWeek(week.user.$oid,'prenom') " v-bind:style="{ backgroundColor: computedColor(getWorkerOfWeek(week.user.$oid,'couleur'), 0.6), borderColor: computedColor(getWorkerOfWeek(week.user.$oid,'couleur'), 1) }">
-                            <p v-on:click="setDisplayTileChild">{{ week['weekDate'] }}</p>
+                        <span  v-if="week.user != '' " v-bind:title="getWorkerOfWeek(week.user.$oid,'prenom') " v-bind:style="{ backgroundColor: computedColor(getWorkerOfWeek(week.user.$oid,'couleur'), 0.6), borderColor: computedColor(getWorkerOfWeek(week.user.$oid,'couleur'), 1) }">
+                            <p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p>
                         </span>
-                        <span v-else v-on:click="setDisplayTile"><p v-on:click="setDisplayTileChild">{{ week['weekDate'] }}</p></span>
+                        <span v-else><p v-on:click="setDisplayTile">{{ week['weekDate'] }}</p></span>
                         
                         <div style="display:none" class="_contentWeekTile" >
                             <p>{{ week['weekDate'] }}</p>
@@ -222,13 +222,12 @@ new Vue({
         initVar : function(){
             axios.get('../controllers/controller.php?ctrl=calendar&fc=start')
                 .then(response=>{
-                
-                    console.log(response);
                     this.sessionWeek = response.data.sessionWeek;
                     this.sessionEmployee = response.data.sessionEmployee;
                 }).catch(error=>{
                     
                 });
+                
         },
 
         /**
@@ -265,11 +264,6 @@ new Vue({
         Here, the opposit from unsetDisplayTile
             */
         setDisplayTile: function(event){
-            event.target.style.display='none';
-            event.target.parentNode.children[1].style.display='grid';
-            
-        },
-        setDisplayTileChild: function(event){
             event.target.parentNode.style.display='none';
             event.target.parentNode.parentNode.children[1].style.display='grid';
             
@@ -280,7 +274,7 @@ new Vue({
             */
         unsetDisplayTile: function(event){
             event.target.parentNode.style.display='none';
-            event.target.parentNode.parentNode.children[0].style.display='grid';
+            event.target.parentNode.parentNode.children[0].style.display='flex';
         
         },
 

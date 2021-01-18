@@ -29,8 +29,9 @@ class userManager{
 
     public function addUser($tabUser)//add user to the DB
     {
+        $userTabFilter=['email' =>$tabUser['email']];
         //On insère le nouvel uilisateur
-        if($this->testExistUser($tabUser) == null)//Test if he has been added before and return the user(we will set an error then) or null (we can add it  then)
+        if($this->testExistUser($userTabFilter) == null)//Test if he has been added before and return the user(we will set an error then) or null (we can add it  then)
         {
             $single_insert = new MongoDB\Driver\BulkWrite();
             $newAddId = $single_insert->insert($tabUser);//return the id of the new add
@@ -46,7 +47,8 @@ class userManager{
 
     public function createUser($userTab){//create the user as a PHP object
 
-        $user = new User($userTab['id'][0]);
+       
+        $user = new User($userTab['id']);
         $user->hydrate($userTab);
         return $user;
     }
@@ -63,6 +65,7 @@ class userManager{
             {
                 $userExist = $user ? $user : null;//set to the user value if exists, null insted
             }
+            //var_dump($userExist);
             return $userExist;
     }
 
