@@ -1,28 +1,33 @@
-planning
 
-courte description : planning pour un manager qui
+                            PROJET PLANNING - MONGO PHP
+                        Par PRENEY Valère et DIMITROV Joaquim
 
-fonctionnalités:
-login/register
-affichage d'un planning par année
-pouvoiur attrivuer/retirer une semaine à un employé
-...
+Fonctionnalité développées :
+ - Créer un compte & se connecter/déconnecter (gestion des erreurs, password encrypté, etc.);
+ - Afficher un planning par année;
+ - Afficher l'épelucheur de la semaine;
+ - Ajouter / Modifier l'épelucheur de la semaine;
+ - Afficher les statistiques sous forme de graphique: Nombre de semaines travaillées par employé et par année.
+
+Feature possible pour extension du projet :
+ - Ajouter un employé et l'intégrer dynamiquement au planning ainsi qu'au graphique de statistique.
 
 --------------STRUCTURE DU PROJET
 
 Le projet est construit selon le design pattern MVC.
 L'arborescence est donc la suivante : 
     >index.php
-    > views
+    >views
         >form.php
         >calendrier.php
-        >form.css
-        >calendar.css
+        >style
+            >form.css
+            >calendar.css
 
     >controllers
         >controller.php
         >calendarController.php
-        userController.php
+        >userController.php
 
     >models
         connexion.php
