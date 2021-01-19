@@ -28,16 +28,19 @@ class UserController{
                           ['password' => sha1($_POST['inputPassword'])])
             );//For the filter used on UserManager
 
-            if($result = $this->_userManager->getUserByPassAndEmail($userTabFilter) != null)//return null if the user doesn't exist in DB
+            $result = $this->_userManager->getUserByPassAndEmail($userTabFilter);
+            if($result  != null)//return null if the user doesn't exist in DB
             {
+                
                 $user= array(
-                    'id' => $result['_id'],
-                    'email' => $result['email'],
-                    'password' => $result['password'],
-                    'firstname' => $result['firstname'],
-                    'lastname' => $result['lastname'],
-                    'pseudo' => $result['pseudo']
+                    'id' => $result->_id,
+                    'email' => $result->email,
+                    'password' => $result->password,
+                    'firstname' => $result->firstname,
+                    'lastname' => $result->lastname,
+                    'pseudo' => $result->pseudo
                 );//Filter used on UserManager
+                
                 $this->_user = $this->_userManager->createUser($user);//Create user, not in DB but, for the session var, as an object
                 if($this->_user == 'null'){//In case the creation didn't work
 
@@ -45,6 +48,7 @@ class UserController{
                     $redirect = "form";//redirect to the form connection
 
                 }else{//In case the connexion worked
+                    
                     $_SESSION['userStateLogIn'] = ['res'=>'Connexion réussie','couleur' => 'green'];
                     $redirect = "calendrier";//redirect to the calendar
                     $_SESSION['user'] =$this->_user;//Init the session var user with the user created before
@@ -80,7 +84,7 @@ class UserController{
         {
             $idNewAdd = $this->_userManager->addUser($user);//So the user manager can add the new user. Return the id if the add worked, null if he already exists
             
-            if($_SESSION['userStateLogUp'] = $idNewAdd == 'null')//if null
+            if( $idNewAdd == 'null')//if null
             {
                 $_SESSION['userStateLogUp'] =['res'=>'Un compte avec votre identifiant et mot de passe existe déjà','couleur' => 'red'];//Session var to explain where the error came from
                 $redirect = "form";//redirect to the form connection
