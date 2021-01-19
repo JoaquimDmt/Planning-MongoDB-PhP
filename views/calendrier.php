@@ -8,11 +8,16 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="utf-8">
+    <meta name="author" content="Valere & Joaquim">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Planning Mongo/PHP</title>
+
     <link type="text/css" rel="stylesheet" href="style/calendar.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/fontawesome.css" integrity="sha384-eHoocPgXsiuZh+Yy6+7DsKAerLXyJmu2Hadh4QYyt+8v86geixVYwFqUvMU8X90l" crossorigin="anonymous"/>
+
     <script src="https://kit.fontawesome.com/57280e8850.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>

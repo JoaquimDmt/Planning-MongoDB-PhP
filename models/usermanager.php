@@ -39,7 +39,7 @@ class userManager{
             $this->_managerDb->executeBulkWrite('Planning.users', $single_insert) ;
             
         }else{
-            $newAddId = 'null';
+            $newAddId = null;
         }
         
         return $newAddId;//return null of the id

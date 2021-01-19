@@ -84,9 +84,9 @@ class UserController{
         {
             $idNewAdd = $this->_userManager->addUser($user);//So the user manager can add the new user. Return the id if the add worked, null if he already exists
             
-            if( $idNewAdd == 'null')//if null
+            if( $idNewAdd == null)//if null
             {
-                $_SESSION['userStateLogUp'] =['res'=>'Un compte avec votre identifiant et mot de passe existe déjà','couleur' => 'red'];//Session var to explain where the error came from
+                $_SESSION['userStateLogUp'] =['res'=>'Un compte existe déjà avec cet email','couleur' => 'red'];//Session var to explain where the error came from
                 $redirect = "form";//redirect to the form connection
             }else{
                 $this->_user = $this->_userManager->createUser($user);//Create user, not in DB but, for the session var, as an object
