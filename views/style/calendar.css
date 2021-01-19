@@ -129,12 +129,12 @@ form > #disconnectBtn, form{
     margin: 0;
 }
 .months li{
-    height: 80px;
+    height: 86px;
     display: flex;
     align-items: center;
 }
 .months li:nth-child(5){
-    padding-bottom: 80px;
+    padding-bottom: 86px;
 }
 .weeks-table{
     width: 100%;
